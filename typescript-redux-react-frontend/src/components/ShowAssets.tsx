@@ -4,6 +4,7 @@ import SimpleAsset from './SimpleAsset'
 import mongoose from 'mongoose';
 import { IAction, ActionType } from '../framework/IAction';
 import {IAssetData} from '../state/appState'
+import axios from 'axios'
 
 import { IWindow } from '../framework/IWindow'
 declare let window: IWindow;
@@ -44,6 +45,9 @@ export default class ShowAssets extends Component {
           asset_name: "",
           asset_value: 0
         }
+        axios.post('http://localhost:8080/assets/add', newAsset).then(response => 
+          console.log(response.data)
+        )
         const action: IAssetAction = {
           type: ActionType.create_asset,
           asset: newAsset
