@@ -16,10 +16,10 @@ assetRoutes.route('/read').get(function (req, res) {
             res.json(assets);
         }
     });
-});
+}); 
 
 //C: creat a new asset
-
+ 
 assetRoutes.route('/add').post(function (req, res) {
     console.log("Request to save this asset:" + JSON.stringify(req.body));
     let asset = new Asset(req.body);

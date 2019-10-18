@@ -5,7 +5,7 @@ import Register from './components/Register';
 import ShowAssets from './components/ShowAssets';
 import { Switch, Route } from 'react-router-dom';
 import { IAction, ActionType } from './framework/IAction';
-import { IAssetData, IState } from './state/appState'
+import { IAssetData, IState, IUser } from './state/appState'
 import axios from 'axios';
 import { reducerFunctions } from './reducer/appReducer';
 
@@ -13,7 +13,10 @@ import { IWindow } from './framework/IWindow'
 declare let window: IWindow;
 
 interface IProps {
-  stateCounter: number
+  stateCounter: number,
+  history?: any,
+  location?: any,
+  match?: any
 }
 
 export interface IAssetsLoadedAction extends IAction {
@@ -47,14 +50,17 @@ export default class App extends React.PureComponent<IProps> {
   }
 
   render() {
+    console.log(this.props)
     window.CS.log("App --> render()")
     return (
       <>
         <NavBar />
+          <button onClick={() => 
+    this.props.history.push("/register")}>click me</button>
         <Switch>
-          <Route path="/showassets" component={ShowAssets} />
-          <Route path="/register" component={Register} />
-          <Route path="/" component={Login} />
+          <Route path="/showassets" render={props => <ShowAssets {...props}/>} />
+          <Route path="/register" render={props => <Register {...props}/>} />
+          <Route path="/" render={props => <Login {...props}/>} />
         </Switch>
 
       </>
